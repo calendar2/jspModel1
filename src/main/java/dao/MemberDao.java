@@ -69,17 +69,17 @@ public class MemberDao {
 		int count = 0;
 		
 		try {
-			conn = DBConnection.getConnection();
+			conn = DBConnection.getConnection();	// db 접속하는 단계
 			System.out.println("1/3 addMember success");
 			
-			psmt = conn.prepareStatement(sql);			
+			psmt = conn.prepareStatement(sql);		// mysql 실행	(workbench 실행)
 			psmt.setString(1, dto.getId());
 			psmt.setString(2, dto.getPwd());
 			psmt.setString(3, dto.getName());
 			psmt.setString(4, dto.getEmail());
 			System.out.println("2/3 addMember success");
 			
-			count = psmt.executeUpdate();
+			count = psmt.executeUpdate();			// mysql 실행(컨트롤 엔터)
 			System.out.println("3/3 addMember success");
 			
 		} catch (SQLException e) {
@@ -92,6 +92,8 @@ public class MemberDao {
 		return count>0?true:false;
 	}
 	
+	// public 외부 접근이 가능한지, private 외부 접근이 안됨
+	// MemberDto 반환타입, int, boolean, String, void는 유일하게 반환이 없어
 	public MemberDto login(String id, String pwd) {
 		String sql = " select id, name, email, auth "
 				+ "    from member "
@@ -102,6 +104,7 @@ public class MemberDao {
 		ResultSet rs = null;
 		
 		MemberDto mem = null;
+			
 		
 		try {
 			conn = DBConnection.getConnection();
